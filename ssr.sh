@@ -103,8 +103,8 @@ Set_iptables(){
 	if [[ ${release} == "centos" ]]; then
 		systemctl iptables save
 		systemctl ip6tables save
-		chkconfig --level 2345 iptables on
-		chkconfig --level 2345 ip6tables on
+		systemctl --level 2345 iptables on
+		systemctl --level 2345 ip6tables on
 	else
 		iptables-save > /etc/iptables.up.rules
 		ip6tables-save > /etc/ip6tables.up.rules
@@ -626,8 +626,8 @@ Service_SSR(){
 			echo -e "${Error} ShadowsocksR服务 管理脚本下载失败 !" && exit 1
 		fi
 		chmod +x /etc/init.d/ssr
-		chkconfig --add ssr
-		chkconfig ssr on
+		systemctl --add ssr
+		systemctl ssr on
 	else
 		if ! wget --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/service/ssr_debian -O /etc/init.d/ssr; then
 			echo -e "${Error} ShadowsocksR服务 管理脚本下载失败 !" && exit 1
@@ -722,7 +722,7 @@ Uninstall_SSR(){
 			Save_iptables
 		fi
 		if [[ ${release} = "centos" ]]; then
-			chkconfig --del ssr
+			systemctl --del ssr
 		else
 			update-rc.d -f ssr remove
 		fi
