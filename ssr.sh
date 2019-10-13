@@ -101,6 +101,8 @@ Save_iptables(){
 }
 Set_iptables(){
 	if [[ ${release} == "centos" ]]; then
+	        systemctl enable iptables.service
+		systemctl enable ip6tables.service
 		service iptables save
 		service ip6tables save
 		chkconfig --level 2345 iptables on
