@@ -92,8 +92,8 @@ Del_iptables(){
 }
 Save_iptables(){
 	if [[ ${release} == "centos" ]]; then
-		systemctl iptables save
-		systemctl ip6tables save
+		service iptables save
+		service ip6tables save
 	else
 		iptables-save > /etc/iptables.up.rules
 		ip6tables-save > /etc/ip6tables.up.rules
@@ -101,10 +101,10 @@ Save_iptables(){
 }
 Set_iptables(){
 	if [[ ${release} == "centos" ]]; then
-		systemctl iptables save
-		systemctl ip6tables save
-		systemctl --level 2345 iptables on
-		systemctl --level 2345 ip6tables on
+		service iptables save
+		service ip6tables save
+		chkconfig --level 2345 iptables on
+		chkconfig --level 2345 ip6tables on
 	else
 		iptables-save > /etc/iptables.up.rules
 		ip6tables-save > /etc/ip6tables.up.rules
